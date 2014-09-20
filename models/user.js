@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var comment = require('../models/comment');
 
 function toLower (v) {
   return v.toLowerCase();
@@ -19,9 +20,22 @@ var userSchema = mongoose.Schema({
     facebook: String,
     twitter: String,
     email: { type: String, set: toLower },
-    phoneNumber: {type: String, set: validatePhone, default: "9782061324" },
+    phoneNumber: {type: String, set: validatePhone, default: "9782061324" }, // should this really be default?
     picture:  String,
-    currentEvent: ObjectId
-	})
+    currentEvent: mongoose.Schema.Types.ObjectId,
+    eventsLiked: [mongoose.Schema.Types.ObjectId],
+    eventsHyped: [mongoose.Schema.Types.ObjectId]
+});
+
+userSchema.methods.attend = function(eventId) {
+  eventId.attendees.push(this);
+  currentEvent = eventId;
+}
+
+userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
+  var c = new comment({ user: this, parent: eventId, text: ctext, picture: picUrl });
+  console.log(c);
+  eventId.addComment(c);
+}
 
 module.exports = mongoose.model("User", userSchema);

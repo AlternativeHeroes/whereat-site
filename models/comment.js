@@ -1,9 +1,27 @@
 var mongoose = require('mongoose');
 var commentSchema = mongoose.Schema({
-		username: { type: String, required: true },
-    currentEvent: { type: String, required: true },
-    description: String,
+		user: { type: Object, required: true },
+    parent: { type: Object, required: true },
+    text: String,
     picture:  String,
-	})
+		votes: { type: Number, default: 0 } // number of up/downvotes
+});
+
+commentSchema.methods.vote = function (userId, good){
+	if (good) {
+		this.votes++;
+	} else {
+		this.votes--;
+	}
+	return this.votes;
+};
+
+commentSchema.methods.upvote = function(userId){
+	return this.vote(userId, true);
+}
+
+commentSchema.methods.downvote = function(userId){
+	return this.vote(userId, false);
+}
 
 module.exports = mongoose.model("Comment", commentSchema);
