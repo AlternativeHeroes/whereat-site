@@ -6,12 +6,12 @@ function toLower (v) {
 
 var userSchema = mongoose.Schema({
 		name: { type: String, required: true },
-    bio: { type: String, required: true },
-    facebook: type: String, 
-    twitter: type: String,
-    email: { type: String, required: true, set: toLower },
-    picture:  type: String,
-    currentEvent: type: String,
+    bio: String,
+    facebook: String,
+    twitter: String,
+    email: { type: String, set: toLower },
+    picture:  String,
+    currentEvent: String,
 	})
 
-modules.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
