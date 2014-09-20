@@ -5,7 +5,7 @@ var eventSchema = mongoose.Schema({
   description: String,
   time: Date,
   where: String,
-  host: String, // user id
+  host: ObjectId, // user id
   pictures: Array, // array of picture urls
   attendees: Array, // array of user ids
   ratings: Array // array of ...?

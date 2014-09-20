@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 function toLower (v) {
   return v.toLowerCase();
 }
+
+// TODO: FIX THIS SHIT WITH A CALLBACK ON FAILURE
 function validatePhone (v) {
   var targ=v.replace(/[^\d]/g,''); // remove all non-digits
   if(targ && targ.length===10) {
@@ -19,7 +21,7 @@ var userSchema = mongoose.Schema({
     email: { type: String, set: toLower },
     phoneNumber: {type: String, set: validatePhone, default: "9782061324" },
     picture:  String,
-    currentEvent: String
+    currentEvent: ObjectId
 	})
 
 module.exports = mongoose.model("User", userSchema);
