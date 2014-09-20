@@ -19,7 +19,7 @@ console.log(party.comments[0].user.name + ": " + party.comments[0].text);
 
 
 //
-// THIS IS A SUPER GOOD WAY TO PASS OBJECTS
+// THIS IS A SUPER GOOD WAY TO PASS OBJECTS probably..
 //
 // var mongoose = require('mongoose');
 // var a = mongoose.model("A", {name: String});
