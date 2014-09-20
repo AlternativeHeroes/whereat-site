@@ -1,3 +1,8 @@
+// NOTE: since mongojs has been removed as a repository this file will not
+// actually work, mongojs needs to be readded to test this.
+
+console.warn('MONGOJS WAS REMOVED FROM THIS REPO, READD TO MAKE WORK.');
+
 var http    = require('http');
 var mongojs = require('mongojs');
 
