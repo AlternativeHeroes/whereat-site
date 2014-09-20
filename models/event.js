@@ -23,6 +23,8 @@ eventSchema.methods.vote = function (user, good){
   if (this.voters.indexOf(user) != -1) {
     return user._id + "has already voted, please stop.";
   }
+  if(Date.now < this.time)
+  	return  "Cannot vote, this event has not yet started.";
   if (good) {
     user.eventsLiked.push(this);
     this.votes++;
@@ -43,6 +45,8 @@ eventSchema.methods.downvote = function(userId){
 }
 
 eventSchema.methods.hype = function (userId){
+  if(Date.now > this.time)
+  	return  "Cannot hype, this event has already begun.";
   hypeScore++;
   userId.eventsHyped.push(this);
   return hypeScore;
