@@ -27,15 +27,18 @@ var userSchema = mongoose.Schema({
     eventsHyped: [mongoose.Schema.Types.ObjectId]
 });
 
-userSchema.methods.attend = function(eventId) {
-  eventId.attendees.push(this);
-  this.currentEvent = eventId;
+userSchema.methods.attend = function(e) {
+  if (!e.hasBegun()) {
+    return "Sorry " + this.name + ", this event has not begun yet";
+  }
+  e.attendees.push(this);
+  this.currentEvent = e;
 }
 
-userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
-  var c = new comment({ user: this, parent: eventId, text: ctext, picture: picUrl });
+userSchema.methods.commentOn = function(event1, ctext, picUrl) {
+  var c = new comment({ user: this, parent: event1, text: ctext, picture: picUrl });
   console.log(c);
-  eventId.addComment(c);
+  event1.addComment(c);
 }
 
 module.exports = mongoose.model("User", userSchema);

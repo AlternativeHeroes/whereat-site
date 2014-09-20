@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var eventSchema = mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  time: { type: Date, default: Date.now },
+  date: { type: Date, default: Date.now },
   where: { type: String, required: true },
   host: [], // user id
   eventPicture: String, // picture url
@@ -11,8 +11,8 @@ var eventSchema = mongoose.Schema({
   attendees: [], // array of user ids
   votes: { type: Number, default: 0 }, // number of up/downvotes
   voters: [],
-  hypeScore: { type: Number, default: 0 },
-  comments: []
+  comments: [],
+  hypeScore: { type: Number, default: 0 }
 });
 
 eventSchema.methods.vote = function (user, good){
@@ -23,8 +23,9 @@ eventSchema.methods.vote = function (user, good){
   if (this.voters.indexOf(user) != -1) {
     return user._id + "has already voted, please stop.";
   }
-  if(Date.now < this.time)
+  if(!this.hasBegun()){
   	return  "Cannot vote, this event has not yet started.";
+  }
   if (good) {
     user.eventsLiked.push(this);
     this.votes++;
@@ -44,16 +45,20 @@ eventSchema.methods.downvote = function(userId){
   return this.vote(userId, false);
 }
 
-eventSchema.methods.hype = function (userId){
-  if(Date.now > this.time)
+eventSchema.methods.hype = function (user){
+  if(this.hasBegun())
   	return  "Cannot hype, this event has already begun.";
-  hypeScore++;
-  userId.eventsHyped.push(this);
-  return hypeScore;
+  this.hypeScore++;
+  user.eventsHyped.push(this);
+  return this.hypeScore;
 };
 
-eventSchema.methods.addComment = function (commentId) {
-  this.comments.push(commentId);
+eventSchema.methods.addComment = function (comment) {
+  this.comments.push(comment);
+}
+
+eventSchema.methods.hasBegun = function () {
+  return Date.now() > this.date.getTime();
 }
 
 module.exports = mongoose.model('Event', eventSchema);

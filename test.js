@@ -3,15 +3,16 @@ var events = require('./models/event');
 var user = require('./models/user');
 var comments = require('./models/comment');
 
-var party = new eve({name: "partyyyyy"});
+var party = new events({name: "partyyyyy", date: new Date("Oct 07, 2014")});
 var yam = new user({name: "Yamini"});
 
 // party.vote(yam, true);
 yam.attend(party);
-console.log(party.downvote(yam));
+console.log(party.hype(yam));
 
 yam.commentOn(party, "This party is the bomb.com", "");
 console.log(party.comments[0].user.name + ": " + party.comments[0].text);
+
 
 // console.log(party);
 // console.log(yam);
