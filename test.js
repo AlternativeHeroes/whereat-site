@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var eve = require('./models/event');
+var events = require('./models/event');
 var user = require('./models/user');
-var com = require('./models/comment');
+var comments = require('./models/comment');
 
 var party = new eve({name: "partyyyyy"});
 var yam = new user({name: "Yamini"});
