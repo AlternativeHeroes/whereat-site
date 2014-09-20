@@ -1,4 +1,0 @@
-whereat-site
-============
-
-HackGT 
