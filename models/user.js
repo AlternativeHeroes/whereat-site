@@ -22,9 +22,9 @@ var userSchema = mongoose.Schema({
     email: { type: String, set: toLower },
     phoneNumber: {type: String, set: validatePhone, default: "9782061324" }, // should this really be default?
     picture:  String,
-    currentEvent: mongoose.Schema.Types.ObjectId,
-    eventsLiked: [mongoose.Schema.Types.ObjectId],
-    eventsHyped: [mongoose.Schema.Types.ObjectId]
+    currentEvent: Object,
+    eventsLiked: [],
+    eventsHyped: []
 });
 
 userSchema.methods.attend = function(e) {
@@ -37,7 +37,6 @@ userSchema.methods.attend = function(e) {
 
 userSchema.methods.commentOn = function(event1, ctext, picUrl) {
   var c = new comment({ user: this, parent: event1, text: ctext, picture: picUrl });
-  console.log(c);
   event1.addComment(c);
 }
 
