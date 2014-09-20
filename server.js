@@ -10,7 +10,7 @@ db.once('open', function callback() {
   // yay!
 });
 
-var party = new events({name: "partyyyyy"});
+var party = new events({name: "partyyyyy", where: "TKE"});
 var yam = new user({name: "Yamini"});
 
 // party.vote(yam, true);

@@ -3,8 +3,8 @@ var mongoose = require('mongoose');
 var eventSchema = mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  time: { type: Date, required: true },
-  where: { type: String, required: true },
+  time: { type: Date, required: true, default: Date.now },
+  where: { type: String, required: true,  },
   host: Object, // user id
   eventPicture: String, // picture url
   pictures: [String], // array of picture urls
