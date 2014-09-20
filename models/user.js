@@ -29,7 +29,7 @@ var userSchema = mongoose.Schema({
 
 userSchema.methods.attend = function(eventId) {
   eventId.attendees.push(this);
-  currentEvent = eventId;
+  this.currentEvent = eventId;
 }
 
 userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
