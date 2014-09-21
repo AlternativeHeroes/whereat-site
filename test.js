@@ -12,10 +12,11 @@ db.once('open', function callback() {
 });
 
 // Step 1
-// new User({name: "Yamini"}).save;
+// new User({name: "A-aron"}).save();
 
 // Step 2
-// new Event({name: "partyyyyy", date: new Date("Oct 07, 2014"), where: "Peyton Pants"}).save();
+// new Event({name: "Cheese Party", date: new Date("Sept 23, 2014"), where: "Flagg Building"}).save();
+
 
 // Step 3
 // Event.find({ _id: "541e36898781d20b7058320e"}, function(err, a) {

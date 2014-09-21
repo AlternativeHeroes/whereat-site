@@ -13,7 +13,8 @@ var eventSchema = mongoose.Schema({
   votes: { type: Number, default: 0 }, // number of up/downvotes
   voters: [ObjectId], // user id of voters
   comments: [ObjectId], // id of comments
-  hypeScore: { type: Number, default: 0 }
+  hypeScore: { type: Number, default: 0 },
+  unixTimestamp: Number
 });
 
 eventSchema.methods.vote = function (userId, good){

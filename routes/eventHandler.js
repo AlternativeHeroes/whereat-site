@@ -34,6 +34,7 @@ router.get('/list/all', function(req, res) {
   Event.find({}, function(err, events) {
     var allEvents = [];
     events.forEach(function(e) {
+      e['unixTimestamp'] = e['date'].getTime();
       allEvents.push(e);
     });
     res.send(allEvents);
@@ -59,20 +60,10 @@ router.get('/:id', function(req, res) {
       return;
     }
     res.send(events[0]);
-  })
+  });
 });
 
-router.like('/:id', function(req, res) {
-  Event.find({ _id: req.param('id')}, function(err, events) {
-    if (events.length != 1) {
-      console.log("Broke search");
-      return;
-    }
-    res.send(events[0]);
-  })
-});
-
-router.like('/:id/:userId', function(req, res) {
+router.post('/:id/like/:userId', function(req, res) {
   Event.find({ _id: req.param('id')}, function(err, events) {
     if (events.length != 1) {
       console.log("Broke search");
@@ -84,7 +75,7 @@ router.like('/:id/:userId', function(req, res) {
   })
 });
 
-router.dislike('/:id/:userId', function(req, res) {
+router.post('/:id/dislike/:userId', function(req, res) {
   Event.find({ _id: req.param('id')}, function(err, events) {
     if (events.length != 1) {
       console.log("Broke search");
@@ -107,6 +98,7 @@ router.post('/:id/:userId/text/:content', function(req, res) {
     }
     user = user[0];
     user.commentOn(id, content, "");
+    res.send('ok');
   })
 });
 
