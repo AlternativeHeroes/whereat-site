@@ -81,7 +81,6 @@ eventSchema.methods.hype = function(userId){
 
 eventSchema.methods.addAttendee = function(userId){
   this.attendees.push(userId);
-  console.log("Hi " + this.attendees);
   this.save();
 }
 

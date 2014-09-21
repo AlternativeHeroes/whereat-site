@@ -32,12 +32,16 @@ var userSchema = mongoose.Schema({
 
 userSchema.methods.attend = function(eventId) {
   var self = this;
-
   Event.find({ _id: eventId }, function(err, e) {
-    if (e.length != 1) { return "something is wrong with your search"; }
+    if (e.length != 1) {
+      console.log("something is wrong with your search");
+      return;
+    }
     e = e[0];
-    if (!e.hasBegun()) { return "Sorry " + this.name + ", this event has not begun yet"; }
-    console.log('ADDDDDDD ME BITCH');
+    if (!e.hasBegun()) {
+      console.log("Sorry " + this.name + ", this event has not begun yet");
+      return;
+    }
     e.addAttendee(self._id);
     self.currentEvent = eventId;
     self.save();
