@@ -22,8 +22,9 @@ eventSchema.methods.vote = function (userId, good){
     console.log(good);
     if (user.length != 1) { console.log("Something is wrong with your search"); }
     user = user[0];
-    if (user.currentEvent != self._id) { // users can't vote until they attend
-      // console.warn(userId._id + " has not attended this event, they cannot rate it.");
+    if (!user.currentEvent.equals(self._id)) { // users can't vote until they attend
+      console.log(user.currentEvent);
+      console.log(self._id);
       console.log(user._id + " has not attended this event, they cannot rate it."); // TODO CALL BACK WITH ERRORS AND STUFF
       return;
     }
@@ -36,13 +37,13 @@ eventSchema.methods.vote = function (userId, good){
       return;
     }
     if (good) {
-      user.eventsLiked.push(self);
       self.votes++;
       console.log('VOTES ' + self.votes);
     } else {
-      // TODO remove this event from user's eventsLiked array
       self.votes--;
     }
+    user.eventsLiked.push(self);
+    user.save();
     self.voters.push(userId);
     self.save();
   });

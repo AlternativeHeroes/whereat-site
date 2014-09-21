@@ -51,12 +51,10 @@ userSchema.methods.attend = function(eventId) {
 userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
   var c = new Comment({ user: this._id, parent: eventId, text: ctext, picture: picUrl });
   c.save(function(err) {
-    console.log("comment saved");
     Event.find({ _id: eventId }, function(err, e){
       if (e.length != 1) {
         return "something is wrong with your search";
       }
-      console.log("comment pre-add");
       e[0].addComment(c._id);
       e[0].save();
     });

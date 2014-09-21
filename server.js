@@ -23,15 +23,17 @@ db.once('open', function callback() {
 // });
 
 // Step 4
-User.find({ _id: "541e365e84ae90fe6fd48a61"}, function(err, yamini) {
-  console.log(yamini[0]);
-  yamini[0].attend("541e36898781d20b7058320e");
-})
+// User.find({ _id: "541e365e84ae90fe6fd48a61"}, function(err, yamini) {
+//   console.log(yamini[0]);
+//   yamini[0].attend("541e36898781d20b7058320e");
+// })
 
-// Events.find({ _id: "541e1843bbd61e8d6c13f17a" }, function(err, party) {
-  // party[0].upvote("541e179eb53263786c98cd3e");
+// Step 5
+// Event.find({ _id: "541e36898781d20b7058320e" }, function(err, party) {
+//   party[0].downvote("541e365e84ae90fe6fd48a61");
 // });
 
-// User.find({ _id: "541e179eb53263786c98cd3e" }, function(err, yamini) {
-//   yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging", "");
-// });
+// Step 6
+User.find({ _id: "541e365e84ae90fe6fd48a61" }, function(err, yamini) {
+  yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging, still", "");
+});
