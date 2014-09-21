@@ -1,25 +1,26 @@
 var mongoose = require('mongoose');
-var events = require('./models/event');
-var user = require('./models/user');
-var comments = require('./models/comment');
+var Events = require('./models/event');
+var User = require('./models/user');
+var Comments = require('./models/comment');
 
 mongoose.connect('mongodb://test:testes@ds033750.mongolab.com:33750/whereat');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
-  console.log("Opened connection to Mongo!\n");
+  // console.log("Opened connection to Mongo!\n");
 });
 
-var yamini = new user({ name: "GoonYamini" });
-var nick = new user({ name: "GoonNick" });
-var michael = new user({ name: "GoonMike" });
+User.find({ _id: "541e179eb53263786c98cd3e" }, function(err, yamini) {
+  yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging", "");
+});
 
-var ptke = new events({ name: "TKE party", date: Date.now() + 24 * 3600, where: "Peyton pants" });
+
+// var ptke = new Events({ name: "TKE party", date: Date.now() + 24 * 3600, where: "Peyton pants" });
 // var ptke1 = new events({ name: "TKE party11", date: new Date("23 Sept 2014"), where: "Peter" });
 // var ptke2 = new events({ name: "TKE party222", date: Date.now(), where: "Chandrew" });
 
-console.log(yamini.attend(ptke));
+// console.log(yamini.attend(ptke));
 // console.log(yamini.attend(ptke1));
 // console.log(yamini.attend(ptke2));
 //
@@ -37,10 +38,10 @@ console.log(yamini.attend(ptke));
 // // cc.save();
 // ptke.comments.push(cc);
 
-yamini.commentOn(ptke, "This partay was banging", "");
+// yamini.commentOn(ptke, "This partay was banging", "");
 
-yamini.save();
+// yamini.save();
 // nick.save();
 // michael.save();
 
-ptke.save();
+// ptke.save();

@@ -6,12 +6,14 @@ var comments = require('./models/comment');
 var party = new events({name: "partyyyyy", date: new Date("Oct 07, 2014")});
 var yam = new user({name: "Yamini"});
 
-// party.vote(yam, true);
-yam.attend(party);
-console.log(party.hype(yam));
+var yamFound = user.find({ _id: yam._id });
 
-yam.commentOn(party, "This party is the bomb.com", "");
-console.log(party.comments[0].user.name + ": " + party.comments[0].text);
+// party.vote(yam, true);
+// yam.attend(party._id);
+// console.log(party.hype(yam._id));
+//
+// yam.commentOn(party._id, "This party is the bomb.com", "");
+// console.log(party.comments[0].user.name + ": " + party.comments[0].text);
 
 
 // console.log(party);
