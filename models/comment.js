@@ -3,7 +3,7 @@ var Event = require('../models/event');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var commentSchema = mongoose.Schema({
-		user: { type: ObjectId, required: true },
+		userId: { type: ObjectId, required: true },
     parent: { type: ObjectId, required: true },
 		date: { type: Date, default: Date.now },
     text: String,

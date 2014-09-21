@@ -23,7 +23,7 @@ var userSchema = mongoose.Schema({
     facebook: String,
     twitter: String,
     email: { type: String, set: toLower },
-    phoneNumber: {type: String, set: validatePhone, default: "9782061324" }, // should this really be default?
+    phoneNumber: {type: String, set: validatePhone },
     picture:  String,
     currentEvent: ObjectId,
     eventsLiked: [ObjectId],
@@ -49,7 +49,7 @@ userSchema.methods.attend = function(eventId) {
 };
 
 userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
-  var c = new Comment({ user: this._id, parent: eventId, text: ctext, picture: picUrl });
+  var c = new Comment({ userId: this._id, parent: eventId, text: ctext, picture: picUrl });
   c.save(function(err) {
     Event.find({ _id: eventId }, function(err, e){
       if (e.length != 1) {
