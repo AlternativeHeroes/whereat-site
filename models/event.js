@@ -94,4 +94,8 @@ eventSchema.methods.hasBegun = function () {
   return Date.now() > this.date.getTime();
 };
 
+eventSchema.methods.isRelevant = function () {
+  return (Date.now() - 6 * 3600) < this.date.getTime();
+}
+
 module.exports = mongoose.model('Event', eventSchema);
