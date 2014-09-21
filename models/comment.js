@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var Event = require('../models/event');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var commentSchema = mongoose.Schema({

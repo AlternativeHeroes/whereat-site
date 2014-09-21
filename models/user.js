@@ -1,6 +1,6 @@
 var mongoose  = require('mongoose');
+var Event    = require('../models/event');
 var Comment   = require('../models/comment');
-var Event     = require('../models/event')
 
 function toLower (v) {
   return v.toLowerCase();
@@ -32,19 +32,17 @@ var userSchema = mongoose.Schema({
 
 userSchema.methods.attend = function(eventId) {
   var self = this;
+
   Event.find({ _id: eventId }, function(err, e) {
-    if (e.length != 1) {
-      return "something is wrong with your search";
-    }
+    if (e.length != 1) { return "something is wrong with your search"; }
     e = e[0];
-    if (!e.hasBegun()) {
-      return "Sorry " + this.name + ", this event has not begun yet";
-    }
-    e.attendees.push(self._id);
+    if (!e.hasBegun()) { return "Sorry " + this.name + ", this event has not begun yet"; }
+    console.log('ADDDDDDD ME BITCH');
+    e.addAttendee(self._id);
     self.currentEvent = eventId;
     self.save();
   });
-}
+};
 
 userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
   var c = new Comment({ user: this._id, parent: eventId, text: ctext, picture: picUrl });
@@ -59,6 +57,6 @@ userSchema.methods.commentOn = function(eventId, ctext, picUrl) {
       e[0].save();
     });
   });
-}
+};
 
 module.exports = mongoose.model("User", userSchema);

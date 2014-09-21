@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Events = require('./models/event');
+var Event = require('./models/event');
 var User = require('./models/user');
 var Comments = require('./models/comment');
 
@@ -11,37 +11,27 @@ db.once('open', function callback() {
   // console.log("Opened connection to Mongo!\n");
 });
 
-User.find({ _id: "541e179eb53263786c98cd3e" }, function(err, yamini) {
-  yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging", "");
-});
+// Step 1
+// new User({name: "Yamini"}).save;
 
+// Step 2
+// new Event({name: "partyyyyy", date: new Date("Oct 07, 2014"), where: "Peyton Pants"}).save();
 
-// var ptke = new Events({ name: "TKE party", date: Date.now() + 24 * 3600, where: "Peyton pants" });
-// var ptke1 = new events({ name: "TKE party11", date: new Date("23 Sept 2014"), where: "Peter" });
-// var ptke2 = new events({ name: "TKE party222", date: Date.now(), where: "Chandrew" });
+// Step 3
+// Event.find({ _id: "541e36898781d20b7058320e"}, function(err, a) {
+//   a[0].hype("541e365e84ae90fe6fd48a61");
+// });
 
-// console.log(yamini.attend(ptke));
-// console.log(yamini.attend(ptke1));
-// console.log(yamini.attend(ptke2));
-//
-// console.log(nick.attend(ptke));
-// console.log(nick.attend(ptke1));
-// console.log(nick.attend(ptke2));
-//
-// console.log(michael.attend(ptke));
-// console.log(michael.attend(ptke1));
-// console.log(michael.attend(ptke2));
+// Step 4
+// User.find({ _id: "541e365e84ae90fe6fd48a61"}, function(err, yamini) {
+//   console.log(yamini[0]);
+//   yamini[0].attend("541e36898781d20b7058320e");
+// })
 
+// Events.find({ _id: "541e1843bbd61e8d6c13f17a" }, function(err, party) {
+  // party[0].upvote("541e179eb53263786c98cd3e");
+// });
 
-// var cc = new comments({ user: yamini, text: "This partay was banging" });
-// console.log(cc);
-// // cc.save();
-// ptke.comments.push(cc);
-
-// yamini.commentOn(ptke, "This partay was banging", "");
-
-// yamini.save();
-// nick.save();
-// michael.save();
-
-// ptke.save();
+// User.find({ _id: "541e179eb53263786c98cd3e" }, function(err, yamini) {
+//   yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging", "");
+// });

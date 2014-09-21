@@ -17,26 +17,34 @@ var eventSchema = mongoose.Schema({
 });
 
 eventSchema.methods.vote = function (userId, good){
-  User.find({ _id: userId }, function(err, user){
-    if (user.currentEvent != this._id) { // users can't vote until they attend
+  var self = this;
+  require('../models/user').find({ _id: userId }, function(err, user){
+    console.log(good);
+    if (user.length != 1) { console.log("Something is wrong with your search"); }
+    user = user[0];
+    if (user.currentEvent != self._id) { // users can't vote until they attend
       // console.warn(userId._id + " has not attended this event, they cannot rate it.");
-      return user._id + " has not attended this event, they cannot rate it."; // TODO CALL BACK WITH ERRORS AND STUFF
+      console.log(user._id + " has not attended this event, they cannot rate it."); // TODO CALL BACK WITH ERRORS AND STUFF
+      return;
     }
-    if (this.voters.indexOf(userId) != -1) {
-      return user._id + "has already voted, please stop.";
+    if (self.voters.indexOf(userId) != -1) {
+      console.log(user._id + "has already voted, please stop.");
+      return;
     }
-    if(!this.hasBegun()){
-    	return  "Cannot vote, this event has not yet started.";
+    if(!self.hasBegun()){
+    	console.log("Cannot vote, this event has not yet started.");
+      return;
     }
     if (good) {
-      user.eventsLiked.push(this);
-      this.votes++;
+      user.eventsLiked.push(self);
+      self.votes++;
+      console.log('VOTES ' + self.votes);
     } else {
       // TODO remove this event from user's eventsLiked array
-      this.votes--;
+      self.votes--;
     }
-    this.voters.push(userId);
-    return this.votes;
+    self.voters.push(userId);
+    self.save();
   });
 };
 
@@ -49,19 +57,41 @@ eventSchema.methods.downvote = function(userId){
 }
 
 eventSchema.methods.hype = function(userId){
-  if(this.hasBegun())
-  	return  "Cannot hype, this event has already begun.";
-  this.hypeScore++;
-  user.eventsHyped.push(this);
-  return this.hypeScore;
+  var self = this;
+  require('../models/user').find({ _id: userId }, function(err, user){
+    if (user.length != 1) {
+      console.log("something went wrong with search");
+      return;
+    }
+    user = user[0];
+    if(self.hasBegun()) {
+    	console.log("Cannot hype, this event has already begun.");
+      return;
+    }
+    if (user.eventsHyped.indexOf(self._id) != -1) {
+      console.log(user._id + "has already hyped, please stop.");
+      return;
+    }
+    self.hypeScore++;
+    user.eventsHyped.push(self._id);
+    user.save();
+    self.save();
+  });
 };
+
+eventSchema.methods.addAttendee = function(userId){
+  this.attendees.push(userId);
+  console.log("Hi " + this.attendees);
+  this.save();
+}
 
 eventSchema.methods.addComment = function (commentId) {
   this.comments.push(commentId);
-}
+  this.save();
+};
 
 eventSchema.methods.hasBegun = function () {
   return Date.now() > this.date.getTime();
-}
+};
 
 module.exports = mongoose.model('Event', eventSchema);

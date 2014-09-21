@@ -1,12 +1,17 @@
 var mongoose = require('mongoose');
-var events = require('./models/event');
+var Event = require('./models/event');
 var user = require('./models/user');
 var comments = require('./models/comment');
 
-var party = new events({name: "partyyyyy", date: new Date("Oct 07, 2014")});
-var yam = new user({name: "Yamini"});
+var party = new Event({name: "partyyyyy", date: new Date("Oct 07, 2014")});
+// console.log(Events);
 
-var yamFound = user.find({ _id: yam._id });
+Event.find({ _id: "541e1843bbd61e8d6c13f17a"}, function(err, party) {
+  console.log(party[0]);
+})
+// var yam = new user({name: "Yamini"});
+
+// var yamFound = user.find({ _id: yam._id });
 
 // party.vote(yam, true);
 // yam.attend(party._id);
