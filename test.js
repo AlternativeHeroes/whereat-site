@@ -1,28 +1,42 @@
 var mongoose = require('mongoose');
 var Event = require('./models/event');
-var user = require('./models/user');
-var comments = require('./models/comment');
+var User = require('./models/user');
+var Comments = require('./models/comment');
 
-var party = new Event({name: "partyyyyy", date: new Date("Oct 07, 2014")});
-// console.log(Events);
+mongoose.connect('mongodb://test:testes@ds033750.mongolab.com:33750/whereat');
 
-Event.find({ _id: "541e1843bbd61e8d6c13f17a"}, function(err, party) {
-  console.log(party[0]);
-})
-// var yam = new user({name: "Yamini"});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback() {
+  // console.log("Opened connection to Mongo!\n");
+});
 
-// var yamFound = user.find({ _id: yam._id });
+// Step 1
+// new User({name: "Yamini"}).save;
 
-// party.vote(yam, true);
-// yam.attend(party._id);
-// console.log(party.hype(yam._id));
-//
-// yam.commentOn(party._id, "This party is the bomb.com", "");
-// console.log(party.comments[0].user.name + ": " + party.comments[0].text);
+// Step 2
+// new Event({name: "partyyyyy", date: new Date("Oct 07, 2014"), where: "Peyton Pants"}).save();
 
+// Step 3
+// Event.find({ _id: "541e36898781d20b7058320e"}, function(err, a) {
+//   a[0].hype("541e365e84ae90fe6fd48a61");
+// });
 
-// console.log(party);
-// console.log(yam);
+// Step 4
+// User.find({ _id: "541e365e84ae90fe6fd48a61"}, function(err, yamini) {
+//   console.log(yamini[0]);
+//   yamini[0].attend("541e36898781d20b7058320e");
+// })
+
+// Step 5
+// Event.find({ _id: "541e36898781d20b7058320e" }, function(err, party) {
+//   party[0].downvote("541e365e84ae90fe6fd48a61");
+// });
+
+// Step 6
+// User.find({ _id: "541e365e84ae90fe6fd48a61" }, function(err, yamini) {
+//   yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging, still", "");
+// });
 
 
 //

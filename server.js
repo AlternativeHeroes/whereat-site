@@ -1,8 +1,14 @@
+// Load the http module to create an http server.
+var http = require('http');
+// Load mongoose for database stuff
 var mongoose = require('mongoose');
+
+// Models TODO: remove later? delegate?
 var Event = require('./models/event');
 var User = require('./models/user');
 var Comments = require('./models/comment');
 
+// connect to database
 mongoose.connect('mongodb://test:testes@ds033750.mongolab.com:33750/whereat');
 
 var db = mongoose.connection;
@@ -11,29 +17,15 @@ db.once('open', function callback() {
   // console.log("Opened connection to Mongo!\n");
 });
 
-// Step 1
-// new User({name: "Yamini"}).save;
-
-// Step 2
-// new Event({name: "partyyyyy", date: new Date("Oct 07, 2014"), where: "Peyton Pants"}).save();
-
-// Step 3
-// Event.find({ _id: "541e36898781d20b7058320e"}, function(err, a) {
-//   a[0].hype("541e365e84ae90fe6fd48a61");
-// });
-
-// Step 4
-// User.find({ _id: "541e365e84ae90fe6fd48a61"}, function(err, yamini) {
-//   console.log(yamini[0]);
-//   yamini[0].attend("541e36898781d20b7058320e");
-// })
-
-// Step 5
-// Event.find({ _id: "541e36898781d20b7058320e" }, function(err, party) {
-//   party[0].downvote("541e365e84ae90fe6fd48a61");
-// });
-
-// Step 6
-User.find({ _id: "541e365e84ae90fe6fd48a61" }, function(err, yamini) {
-  yamini[0].commentOn(yamini[0].currentEvent, "This partay is banging, still", "");
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (req, res) {
+  console.log(req.method);
+  res.writeHead(200, {"Content-Type": "text/plain"});
+  res.end("Hello World\n");
 });
+
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8000);
+
+// Put a friendly message on the terminal
+console.log("Server running at http://127.0.0.1:8000/");
